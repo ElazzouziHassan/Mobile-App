@@ -14,6 +14,8 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 
@@ -28,28 +30,46 @@ public class MainActivity extends AppCompatActivity {
 
         resTextViewResult = findViewById(R.id.text_view_result);
         Button btnSubmit = findViewById(R.id.btn_submit);
-        reqQueue = Volley.newRequestQueue(this);
+
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                JsonParse();
+                jsonParse();
             }
         });
 
     }
-    private void JsonParse() {
-        String url = "https://jsonplaceholder.typicode.com/todos/1";
+    private void jsonParse() {
 
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject response) {
+        String url = "https://jsonplaceholder.typicode.com/users";
 
-            }
-        }, new Response.ErrorListener() {
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            JSONArray jsonArray = response.getJSONArray("users");
+
+                            for (int i = 0; i < 5; i++) {
+                                JSONObject user = jsonArray.getJSONObject(i);
+
+                                String name = user.getString("name");
+                                String username = user.getString("username");
+                                String email = user.getString("email");
+
+                                resTextViewResult.append(name + ", " + String.valueOf(username) + ", " + email + "\n\n");
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 error.printStackTrace();
             }
         });
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        reqQueue.add(request);
     }
 }
