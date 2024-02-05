@@ -21,7 +21,7 @@ import org.json.JSONObject;
 
 public class MainActivity extends AppCompatActivity {
     private TextView resTextViewResult;
-    private RequestQueue reqQueue;
+    //private RequestQueue reqQueue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,16 +29,56 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         resTextViewResult = findViewById(R.id.text_view_result);
+        resTextViewResult.setText("hello world");
+
+        /*
+        String url = "https://jsonplaceholder.typicode.com/todos/1";
+
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(url, null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    int userId = response.getInt("userId");
+                    int id = response.getInt("id");
+                    String title = response.getString("title");
+                    boolean status = response.getBoolean("completed");
+                    resTextViewResult.setText(userId+"\n"+id+"\n"+title+"\n"+status);
+                } catch (JSONException e){
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                resTextViewResult.setText("error ");
+            }
+        });
+
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        requestQueue.add(jsonObjectRequest);
+        */
+        /*
+        ********************************************************************************************
+        */
+        /*
+        ********************************************************************************************
         Button btnSubmit = findViewById(R.id.btn_submit);
+        * /
         reqQueue = Volley.newRequestQueue(this);
+
         btnSubmit.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
                 jsonParse();
             }
         });
+        ********************************************************************************************
+         */
 
     }
+    /*
+    ************************************************************************************************
     private void jsonParse() {
 
         String url = "https://jsonplaceholder.typicode.com/users";
@@ -72,4 +112,6 @@ public class MainActivity extends AppCompatActivity {
 
         reqQueue.add(request);
     }
+    ************************************************************************************************
+    */
 }
