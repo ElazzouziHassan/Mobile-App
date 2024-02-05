@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
 
         resTextViewResult = findViewById(R.id.text_view_result);
         Button btnSubmit = findViewById(R.id.btn_submit);
-
+        reqQueue = Volley.newRequestQueue(this);
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
                 error.printStackTrace();
             }
         });
-        RequestQueue requestQueue = Volley.newRequestQueue(this);
+
         reqQueue.add(request);
     }
 }
